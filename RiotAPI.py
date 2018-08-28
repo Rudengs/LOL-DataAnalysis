@@ -11,24 +11,19 @@ def requestRankedData(region, summonerName, APIKey):
     return response.json()
 
 def main():
-    #region = (str)(input('Region: '))
-    #summonerName = (str)(input('Summoner Name: '))
-    #APIKey = (str)(input('Key: '))
-    
-    region = (str)('kr')
-    summonerName = (str)('루뎅a')
+    region = (str)(input('Region: '))
+    summonerName = (str)(input('Summoner Name: '))
 
     f = open("./DEVELOPMENT_API_KEY.txt", 'r')
     APIKey = f.readline()
     f.close()
 
-    responseJSON = requestSummonerData(region, summonerName, APIKey)
-    ID = responseJSON['id']
-    ID = str(ID)
-    responseJSON2 = requestRankedData(region, ID, APIKey)
+    summonerDataJSON = requestSummonerData(region, summonerName, APIKey)
+    ID = str(summonerDataJSON['id'])
+    RankedDataJSON = requestRankedData(region, ID, APIKey)
 
-    print (responseJSON2[1]['tier'])
-    print (responseJSON2[1]['rank'])
+    print (RankedDataJSON[1]['tier'])
+    print (RankedDataJSON[1]['rank'])
 
 if __name__ == "__main__":
     main()
