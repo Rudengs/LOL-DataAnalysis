@@ -2,6 +2,7 @@ import requests
 import pprint
 import json
 
+# Summoner
 def getSummonerData(region, summonerName, APIKey):
         """소환사의 프로필 정보"""
         URL = "https://" + region + ".api.riotgames.com/lol/summoner/v3/summoners/by-name/" + summonerName + "?api_key=" + APIKey
@@ -80,22 +81,20 @@ def getMatchListsData(region, accountId, APIKey):
         return response.json()
 
 def getTimeLineData(region, matchId, APIKey):
-        """Match TimeLine"""
+        """Match의 시간대별 Log"""
         URL = "https://" + region + ".api.riotgames.com/lol/match/v3/timelines/by-match/"+ matchId + "?api_key=" + APIKey
         response = requests.get(URL)
         return response.json()
 
-def main():
-        region = (str)(input('Region: '))
-        summonerName = (str)(input('Summoner Name: '))
+# Spectator
+def getSpectatorData(region, summonerID, APIKey):
+        """플레이중인 게임 관전 데이터, 플레이중이 아닐경우 404에러"""
+        URL = "https://" + region + ".api.riotgames.com/lol/spectator/v3/active-games/by-summoner/" + summonerID + "?api_key=" + APIKey
+        response = requests.get(URL)
+        return response.json()
 
-        with open("./DEVELOPMENT_API_KEY.txt", 'r') as fout:
-                APIKey = fout.readline()
-
-        summonerDataJSON = getSummonerData(region,summonerName,APIKey)
-        summonerID = str(summonerDataJSON['id'])
-        jsonData = getTimeLineData(region, '3327578638', APIKey)
-        print(json.dumps(jsonData, indent=2))
-
-if __name__ == "__main__":
-    main()
+def getFeaturedGameData(region, APIKey):
+        """추천 게임 데이터"""
+        URL = "https://" + region + ".api.riotgames.com/lol/spectator/v3/featured-games?api_key=" + APIKey
+        response = requests.get(URL)
+        return response.json()
