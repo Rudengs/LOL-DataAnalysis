@@ -36,7 +36,7 @@ def getChampionRotationsData(region, APIKey):
         return response.json()       
 
 # League
-def getCallengerLeaguesData(region, queue, APIKey):
+def getChallengerLeaguesData(region, queue, APIKey):
         """Challeger League의 모든 소환사 데이터, queue: RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLES_TT"""
         URL = "https://" + region + ".api.riotgames.com/lol/league/v3/challengerleagues/by-queue/"+ queue + "?api_key=" + APIKey
         response = requests.get(URL)
