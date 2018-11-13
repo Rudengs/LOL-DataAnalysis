@@ -80,6 +80,12 @@ def getMatchListsData(region, accountId, APIKey):
         response = requests.get(URL)
         return response.json()
 
+def getMatchListsToIndex(region, accountId, begin_index, end_index, APIKey):
+        """소환사의 Match Lists - Optional: endTime, beginIndex, beginTime, champion, endIndex, queue, season"""
+        URL = "https://" + region + ".api.riotgames.com/lol/match/v3/matchlists/by-account/"+ str(accountId) + "?beginIndex=" + str(begin_index) + "&endIndex=" + str(end_index) + "&api_key=" + APIKey
+        response = requests.get(URL)
+        return response.json()
+
 def getTimeLineData(region, matchId, APIKey):
         """Match의 시간대별 Log"""
         URL = "https://" + region + ".api.riotgames.com/lol/match/v3/timelines/by-match/"+ matchId + "?api_key=" + APIKey
